@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF Import Button</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="compile/css/pdf_import.css"/>
+
+  <script type="text/javascript" src="compile/js/vendors.js"></script>
+  <script type="text/javascript" src="compile/js/pdf_import.js"></script>
+</head>
+<body tabindex="1" ng-app="App" ng-controller="Import as ctrl" ng-strict-di="true">
+<div ng-switch="ctrl.row.inLibraryStatus" class="readcube-pdf-view">
+  <div ng-switch-when="not_found" ng-click="ctrl.onDownloadPdfClick()" class="readcube-pdf-import-button">
+    <span class="readcube-icon-extended readcube-icon-cloud"></span>
+    Save PDF to ReadCube
+  </div>
+  <div ng-switch-when="pdf_downloading" class="readcube-pdf-import-button">
+    <div class="readcube-progress-bar" style="width: {{ ctrl.row.progressPercent }}%"
+         ng-if="ctrl.row.progressType == 'progress_download'"></div>
+    <div class="readcube-progress-bar readcube-progress-bar-upload" style="width: {{ ctrl.row.progressPercent }}%"
+         ng-if="ctrl.row.progressType == 'progress_upload'"></div>
+    <span class="readcube-icon-extended readcube-icon-circle"></span>
+    Importing PDF...
+  </div>
+  <div ng-switch-when="pdf_resolving" class="readcube-pdf-import-button">
+    <span class="readcube-icon-extended readcube-icon-circle"></span>
+    Resolving PDF...
+  </div>
+  <div ng-click="ctrl.onOpenLibraryClick()" ng-switch-when="pdf_resolve_warning" class="readcube-pdf-import-button">
+    <span class="readcube-icon readcube-icon-logo"></span>
+    Imported to Readcube
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility"
+               view-text="PDF imported, however it needs additional time to be resolved" view-close="yes"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-switch-when="in_library_with_pdf" ng-click="ctrl.onInLibraryClick()" class="readcube-pdf-import-button">
+    <span class="readcube-icon readcube-icon-logo"></span>
+    View in ReadCube
+  </div>
+  <div ng-switch-when="in_library_without_pdf_warning" class="readcube-pdf-import-button">
+    <span class="download-pdf-failed">!</span>
+    Unable to download PDF
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility" view-text="Please reload and try again" view-close="yes"
+               view-retry="yes" view-retry-method="ctrl.onRetryClick()"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-switch-when="not_logged_in" class="readcube-pdf-import-button">
+    <span class="download-pdf-failed">!</span>
+    Unable to download PDF
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility" view-close="yes"
+               view-text="Not logged in. Please login into your Readcube account and try again"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-switch-when="status_in_library_without_pdf_no_subscription" class="readcube-pdf-import-button">
+    <span class="download-pdf-failed">!</span>
+    Unable to download PDF
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility" view-close="yes" view-class="readcube-tooltip-warning"
+               view-url="tooltip/pdf_view_no_subscription"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-switch-when="status_in_library_without_pdf_expired_subscription" class="readcube-pdf-import-button">
+    <span class="download-pdf-failed">!</span>
+    Unable to download PDF
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility" view-close="yes" view-class="readcube-tooltip-warning"
+               view-url="tooltip/pdf_view_expired_subscription"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-switch-when="status_in_library_without_pdf_expired_trial" class="readcube-pdf-import-button">
+    <span class="download-pdf-failed">!</span>
+    Unable to download PDF
+    <tether-tooltip view-visibility="ctrl.tooltipVisibility">
+      <tooltip view-visibility="ctrl.tooltipVisibility" view-close="yes" view-class="readcube-tooltip-warning"
+               view-url="tooltip/pdf_view_expired_trial"></tooltip>
+    </tether-tooltip>
+  </div>
+  <div ng-if="ctrl.offlineTooltipVisibility.visible">
+    <tether-tooltip view-visibility="ctrl.offlineTooltipVisibility">
+      <tooltip view-close="yes" view-visibility="ctrl.offlineTooltipVisibility"
+               view-text="Import error - please check your network connection and try again"></tooltip>
+    </tether-tooltip>
+  </div>
+</div>
+</body>
+</html>

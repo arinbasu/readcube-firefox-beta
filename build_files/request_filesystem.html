@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ReadCube PDF Import</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" href="compile/css/vendors_popup.css"/>
+  <link rel="stylesheet" href="compile/css/request_filesystem.css"/>
+
+  <script type="text/javascript" src="compile/js/vendors.js"></script>
+  <script type="text/javascript" src="compile/js/request_filesystem.js"></script>
+</head>
+<body tabindex="1" ng-app="App" ng-controller="RequestFilesystem as ctrl" ng-strict-di="true">
+<div>
+  <img class="readcube-image-logo" src="icons/readcube-logo.png" alt="Readcube logo">
+</div>
+<h4>ReadCube PDF Import</h4>
+<p>
+  In order to import downloaded, local file system PDFs from your computer, please check the option to <b>Allow access to
+  file URLs</b> for the ReadCube extension.
+</p>
+
+<p>
+  Click <b>OK</b> below to open the Chrome Extension Settings page, where this checkbox is displayed in the ReadCube listing.
+</p>
+
+<div class="readcube-buttons-holder">
+  <button ng-click="ctrl.onNeverAskAgainClick()" type="button" class="btn btn-default btn-sm readcube-button">Never ask again</button>
+  <button ng-click="ctrl.onAskMeLaterClick()" type="button" class="btn btn-default btn-sm readcube-button">Ask me later</button>
+  <button ng-click="ctrl.onOkClick()" type="button" class="btn btn-primary btn-sm readcube-button">OK</button>
+</div>
+
+<div class="clearfix"></div>
+</body>
+</html>
